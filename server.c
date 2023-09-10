@@ -31,6 +31,14 @@ void notify_client_join(int client_sock, char *client_name) {
         printf("sending failure \n");
     }
 
+    if (strcmp(client_name, "Selyatin") == 0) {
+        char birthday_msg[500];
+        sprintf(birthday_msg, "Happy birthday aga! - https://youtu.be/eZSibLQggzw?t=605\n");
+        if (send(client_sock, birthday_msg, strlen(birthday_msg), 0) < 0) {
+            printf("sending failure \n");
+        }
+    }
+
     char join_msg[500];
     sprintf(join_msg, "%s joined the chat\n", client_name);
     sendtoall(join_msg, -1); 
