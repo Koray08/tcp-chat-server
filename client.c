@@ -7,7 +7,7 @@
 
 char msg[500];
 
-int isNicknameTooLong(const char *nickname) {
+int is_nickname_too_long(const char *nickname) {
     return strlen(nickname) > 100;
 }
 
@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
 
     char *client_name = argv[1];
 
-    if (isNicknameTooLong(client_name)) {
+    if (is_nickname_too_long(client_name)) {
         printf("Nickname should be shorter (max 100 characters).\n");
         return 1;
     }

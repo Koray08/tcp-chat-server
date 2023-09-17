@@ -9,7 +9,7 @@ int clients[20];
 char client_names[20][100];
 int n = 0;
 
-void sendtoall(char *msg, int curr) {
+void send_to_all(char *msg, int curr) {
     int i;
     pthread_mutex_lock(&mutex);
     for (i = 0; i < n; i++) {
@@ -41,7 +41,7 @@ void notify_client_join(int client_sock, char *client_name) {
 
     char join_msg[500];
     sprintf(join_msg, "%s joined the chat\n", client_name);
-    sendtoall(join_msg, -1); 
+    send_to_all(join_msg, -1); 
 }
 
 void notify_client_disconnect(char *client_name) {
@@ -62,7 +62,7 @@ void notify_client_disconnect(char *client_name) {
     }
     pthread_mutex_unlock(&mutex);
 
-    sendtoall(disconnect_msg, -1); 
+    send_to_all(disconnect_msg, -1); 
 }
 
 void *recvmg(void *client_sock) {
@@ -86,7 +86,7 @@ void *recvmg(void *client_sock) {
         msg[len] = '\0';
         char message_with_name[600];
         sprintf(message_with_name, "%s: %s", client_name, msg);
-        sendtoall(message_with_name, sock);
+        send_to_all(message_with_name, sock);
     }
 
     notify_client_disconnect(client_name);
